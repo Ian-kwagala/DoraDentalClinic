@@ -1,0 +1,293 @@
+/**
+ * style.css
+ * -----------------------------------------------------------------------
+ * Hand-converted from the Tailwind v4 mockup theme you provided.
+ * The original used Tailwind-only directives (@theme, @utility,
+ * @custom-variant) which need a build step to work. This file reproduces
+ * the SAME colors, fonts, radii, shadows, and animations as plain CSS
+ * custom properties + classes — no build tools required, works directly
+ * via a <link> tag in plain PHP/HTML.
+ */
+
+/* ---- 1. Design tokens (colors, radius, shadows) --------------------- */
+/* Values copied 1:1 from the mockup's :root block (oklch colors render
+   fine in all modern browsers without any compiler). */
+:root {
+    --radius: 1rem;
+
+    --background: oklch(0.985 0.006 220);
+    --foreground: oklch(0.24 0.045 250);
+    --surface: oklch(0.968 0.012 215);
+
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.24 0.045 250);
+
+    --primary: oklch(0.42 0.11 248);
+    --primary-foreground: oklch(0.985 0.01 220);
+
+    --navy: oklch(0.28 0.075 255);
+    --navy-foreground: oklch(0.97 0.01 220);
+
+    --teal: oklch(0.68 0.115 195);
+    --teal-foreground: oklch(0.21 0.05 250);
+    --mint: oklch(0.94 0.035 190);
+    --gold: oklch(0.82 0.12 85);
+
+    --secondary: oklch(0.945 0.018 215);
+    --secondary-foreground: oklch(0.3 0.06 250);
+    --muted: oklch(0.955 0.012 220);
+    --muted-foreground: oklch(0.55 0.032 245);
+    --accent: oklch(0.93 0.04 195);
+    --accent-foreground: oklch(0.28 0.075 255);
+
+    --destructive: oklch(0.6 0.2 25);
+    --destructive-foreground: oklch(0.98 0.01 220);
+    --success: oklch(0.66 0.14 162);
+    --success-foreground: oklch(0.99 0.01 200);
+    --warning: oklch(0.79 0.14 78);
+    --warning-foreground: oklch(0.28 0.06 60);
+    --info: oklch(0.62 0.11 240);
+
+    --border: oklch(0.91 0.014 225);
+    --input: oklch(0.91 0.014 225);
+    --ring: oklch(0.68 0.115 195);
+
+    --sidebar: oklch(0.28 0.075 255);
+    --sidebar-foreground: oklch(0.9 0.02 220);
+    --sidebar-primary: oklch(0.68 0.115 195);
+    --sidebar-accent: oklch(0.34 0.07 253);
+    --sidebar-accent-foreground: oklch(0.97 0.01 220);
+    --sidebar-border: oklch(0.36 0.06 253);
+
+    --gradient-brand: linear-gradient(135deg, oklch(0.28 0.075 255), oklch(0.45 0.1 230) 55%, oklch(0.68 0.115 195));
+    --shadow-soft: 0 1px 2px oklch(0.4 0.06 250 / 0.05), 0 12px 30px -18px oklch(0.35 0.08 250 / 0.35);
+    --shadow-lift: 0 2px 6px oklch(0.4 0.06 250 / 0.06), 0 26px 48px -24px oklch(0.32 0.09 250 / 0.45);
+}
+
+/* ---- 2. Reset + base ------------------------------------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Sora', ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ---- 3. App shell layout (sidebar + main content) --------------------- */
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    flex-shrink: 0;
+    background-color: var(--sidebar);
+    color: var(--sidebar-foreground);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 16px;
+    gap: 24px;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 6px;
+}
+.sidebar-brand-icon { width: 22px; height: 22px; color: var(--sidebar-primary); }
+.sidebar-brand-name { font-family: 'Sora', sans-serif; font-weight: 600; font-size: 15px; color: var(--navy-foreground); }
+.sidebar-brand-tagline { font-size: 11px; color: oklch(0.75 0.02 220); }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radius-md, 0.75rem);
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--sidebar-foreground);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.sidebar-link:hover { background-color: var(--sidebar-accent); }
+.sidebar-link.active {
+    background-color: var(--sidebar-accent);
+    color: var(--sidebar-accent-foreground);
+}
+.sidebar-link i { width: 17px; height: 17px; }
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-top: 1px solid var(--sidebar-border);
+}
+.sidebar-user-avatar {
+    width: 34px; height: 34px;
+    border-radius: 999px;
+    background-color: var(--teal);
+    color: var(--teal-foreground);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 12px;
+}
+.sidebar-user-name { font-size: 13px; font-weight: 600; color: var(--navy-foreground); }
+.sidebar-user-role { font-size: 11px; color: oklch(0.75 0.02 220); }
+.sidebar-logout { margin-left: auto; color: oklch(0.75 0.02 220); }
+.sidebar-logout:hover { color: var(--destructive); }
+
+.main-content {
+    flex: 1;
+    padding: 28px 32px;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* ---- 4. Reusable components ------------------------------------------ */
+.card {
+    background-color: var(--card);
+    color: var(--card-foreground);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-soft);
+    padding: 20px;
+}
+
+/* card-hover: same lift-on-hover interaction as the mockup's @utility */
+.card-hover {
+    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease;
+}
+.card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lift);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 13.5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background-color: var(--navy); color: var(--navy-foreground); }
+.btn-primary:hover { opacity: 0.92; }
+.btn-secondary { background-color: var(--secondary); color: var(--secondary-foreground); }
+.btn-outline { background: transparent; border-color: var(--border); color: var(--foreground); }
+.btn-block { width: 100%; }
+
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 12.5px; font-weight: 600; margin-bottom: 6px; color: var(--muted-foreground); text-transform: uppercase; letter-spacing: 0.02em; }
+.form-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--input);
+    border-radius: 0.65rem;
+    font-family: inherit;
+    font-size: 14px;
+    background-color: var(--card);
+    color: var(--foreground);
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--ring);
+    box-shadow: 0 0 0 3px oklch(0.68 0.115 195 / 0.2);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+.badge-success { background-color: var(--mint); color: oklch(0.35 0.1 165); }
+.badge-warning { background-color: oklch(0.95 0.05 85); color: var(--warning-foreground); }
+.badge-destructive { background-color: oklch(0.95 0.05 25); color: var(--destructive); }
+
+.flash {
+    padding: 12px 16px;
+    border-radius: 0.75rem;
+    margin-bottom: 20px;
+    font-size: 13.5px;
+    font-weight: 500;
+}
+.flash-success { background-color: var(--mint); color: oklch(0.3 0.1 165); }
+.flash-error { background-color: oklch(0.95 0.05 25); color: var(--destructive); }
+.flash-info { background-color: var(--accent); color: var(--accent-foreground); }
+
+/* ---- 5. Login page specific layout ------------------------------------ */
+.auth-screen {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.auth-hero {
+    background-image: var(--gradient-brand);
+    color: var(--navy-foreground);
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.auth-hero h1 { font-size: 32px; margin: 16px 0; }
+.auth-panel { display: flex; align-items: center; justify-content: center; padding: 48px; background-color: var(--card); }
+.auth-panel-inner { width: 100%; max-width: 380px; }
+
+.role-option {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border: 1px solid var(--border); border-radius: 0.85rem;
+    margin-bottom: 8px; cursor: pointer; transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.role-option:hover { border-color: var(--ring); }
+.role-option.selected { border-color: var(--teal); background-color: var(--accent); }
+.role-option input { accent-color: var(--teal); }
+
+/* ---- 6. Animations (copied from the mockup's @keyframes) -------------- */
+@keyframes rise-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.rise-in { animation: rise-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes soft-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 oklch(0.68 0.115 195 / 0.45); }
+    50%      { box-shadow: 0 0 0 12px oklch(0.68 0.115 195 / 0); }
+}
+.soft-pulse { animation: soft-pulse 1.6s ease-in-out infinite; }
+
+@keyframes pop-check {
+    0%   { opacity: 0; transform: scale(0.6); }
+    60%  { transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.pop-check { animation: pop-check 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* ---- 7. Small screens (basic responsiveness for the demo) ------------- */
+@media (max-width: 900px) {
+    .auth-screen { grid-template-columns: 1fr; }
+    .auth-hero { display: none; } /* hide the big hero panel on mobile, keep the form */
+    .app-shell { flex-direction: column; }
+    .sidebar { width: 100%; flex-direction: row; overflow-x: auto; }
+    .sidebar-nav { flex-direction: row; }
+}
